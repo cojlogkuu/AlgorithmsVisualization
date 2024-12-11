@@ -10,7 +10,10 @@ import {
 	setIsRunning,
 	deleteVertexAction,
 } from "../../../assets/dataStructureStore/avlTreeSlice.js";
-import {searchingVertexAnimation} from "../../../assets/dataStructureStore/avlTreeThunks.js";
+import {
+	searchingVertexAnimation,
+	searchingMinVertexAnimation,
+} from "../../../assets/dataStructureStore/avlTreeThunks.js";
 import {Link} from "react-router-dom";
 
 
@@ -54,18 +57,20 @@ const DataStructurePage = () => {
 
 	const handleDeleteVertex = () => {
 		setVertexToDelete('');
-		dispatch(searchingVertexAnimation(Number(vertexToDelete), async (wasFound) => {
-			if (!wasFound) {
+		dispatch(searchingVertexAnimation(Number(vertexToDelete), async (foundVertex) => {
+			if (!foundVertex) {
 				alert('This vertex dont exist')
 			} else {
-				dispatch(setIsRunning(true));
-				dispatch(deleteVertexAction(Number(vertexToDelete)));
-				await delay(1000);
-				dispatch(setVertexesToRotate());
-				await delay(1500);
-				dispatch(resetVertexesToRotate());
-				dispatch(setIsRunning(false));
-				dispatch(resetNotBalancedTree());
+				dispatch(searchingMinVertexAnimation(foundVertex, async () => {
+					dispatch(setIsRunning(true));
+					dispatch(deleteVertexAction(Number(vertexToDelete)));
+					await delay(1000);
+					dispatch(setVertexesToRotate());
+					await delay(1500);
+					dispatch(resetVertexesToRotate());
+					dispatch(setIsRunning(false));
+					dispatch(resetNotBalancedTree());
+				}));
 			}
 		}))
 	}
