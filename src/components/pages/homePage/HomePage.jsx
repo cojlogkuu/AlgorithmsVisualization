@@ -12,7 +12,7 @@ const HomePage = () => {
 					</div>
 					<div className="link">
 						<h2>AVL tree</h2>
-						<Link to='/'>Start</Link>
+						<Link to='/dataStructure'>Start</Link>
 					</div>
 				</div>
 				<footer>

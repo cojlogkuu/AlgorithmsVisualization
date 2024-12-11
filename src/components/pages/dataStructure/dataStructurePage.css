@@ -1,0 +1,38 @@
+.dataStructurePage {
+	.container {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.buttonsContainer {
+		padding: 100px 0 30px 0;
+		display: flex;
+		align-items: center;
+		gap: 30px;
+
+		input {
+			border: 1px solid #000;
+			padding: 5px 10px;
+			font-size: 1.25rem;
+		}
+		button, a {
+			display: block;
+			color: #fff;
+			background-color: #085301;
+			padding: 5px 10px;
+			border-radius: 8px;
+			font-size: 1.25rem;
+
+			&:disabled {
+				opacity: 0.6;
+			}
+
+			&:hover {
+				opacity: 0.6;
+			}
+		}
+	}
+
+}

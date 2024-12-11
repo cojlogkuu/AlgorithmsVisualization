@@ -10,8 +10,7 @@ const graphConfig = {
 		size: 300,
 		labelPosition: 'center',
 	},
-	link: {
-	},
+	link: {},
 	width: 600,
 	height: 450,
 };
@@ -40,7 +39,7 @@ const GraphVisualization = ({edgesList, isRunning, setIsRunning}) => {
 		setGraphData(prevData => ({
 			...prevData,
 			nodes: prevData.nodes.map(node =>
-					node.id === nodeId ? { ...node, color } : node
+					node.id === nodeId ? {...node, color} : node
 			),
 		}))
 	}
@@ -50,7 +49,7 @@ const GraphVisualization = ({edgesList, isRunning, setIsRunning}) => {
 			...prevData,
 			links: prevData.links.map(link =>
 					link.source === node1 && link.target === node2 || link.source === node2 && link.target === node1
-							? { ...link, color}
+							? {...link, color}
 							: link
 			),
 		}))
@@ -94,6 +93,38 @@ const GraphVisualization = ({edgesList, isRunning, setIsRunning}) => {
 		}
 	}
 
+	const handleStartAlgorithm = () => {
+		let isVertexExist = false;
+		edgesList.forEach(edge => {
+			if (edge.includes(startVertex)) {
+				isVertexExist = true;
+			}
+		});
+		if (isVertexExist) {
+			setDFsSteps(getStepsOfDFS(edgesList, startVertex));
+			setIsRunning(true);
+		} else {
+			alert('This vertex doesnt exist!');
+		}
+	}
+
+	const handleStopAlgorithm = async () => {
+		setIsRunning(false);
+		setIsPaused(false);
+		await delay(1600);
+		setCurrentStep(0);
+		setGraphData(buildGraphData(edgesList));
+		setVisited([]);
+	}
+
+	const handleStepBack = () => {
+		if (currentStep > 0) {
+			setGraphAtStep(currentStep - 1);
+			setCurrentStep(currentStep - 1);
+		}
+	}
+
+
 	return (
 			<div className="graphVisualization">
 				<div className="graphContainer">
@@ -114,31 +145,11 @@ const GraphVisualization = ({edgesList, isRunning, setIsRunning}) => {
 					</div>
 					<button
 							disabled={isRunning}
-							onClick={() => {
-								let isVertexExist = false;
-								edgesList.forEach(edge => {
-									if (edge.includes(startVertex)) {
-										isVertexExist = true;
-									}
-								});
-								if (isVertexExist) {
-									setDFsSteps(getStepsOfDFS(edgesList, startVertex));
-									setIsRunning(true);
-								} else {
-									alert('This vertex doesnt exist!');
-								}
-							}}
+							onClick={handleStartAlgorithm}
 					>{isRunning ? 'Running' : 'Start'}
 					</button>
 					<button
-							onClick={async () => {
-								setIsRunning(false);
-								setIsPaused(false);
-								await delay(1600);
-								setCurrentStep(0);
-								setGraphData(buildGraphData(edgesList));
-								setVisited([]);
-							}}
+							onClick={handleStopAlgorithm}
 					>Stop
 					</button>
 					<button
@@ -147,12 +158,7 @@ const GraphVisualization = ({edgesList, isRunning, setIsRunning}) => {
 					>{isPaused ? 'Resume' : 'Pause'}</button>
 					<button
 							disabled={!isPaused}
-							onClick={() => {
-								if (currentStep > 0) {
-									setGraphAtStep(currentStep - 1);
-									setCurrentStep(currentStep - 1);
-								}
-							}}
+							onClick={handleStepBack}
 					>Step back
 					</button>
 					<Link to='/'>Go back</Link>

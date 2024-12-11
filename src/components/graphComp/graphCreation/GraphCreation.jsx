@@ -5,6 +5,38 @@ import ListOfEdges from "../listOfEdges/ListOfEdges.jsx";
 const GraphCreation = ({edgesList, setEdgesList, isRunning}) => {
 	const [edge, setEdge] = useState(['', '']);
 	const [edgeToDelete, setEdgeToDelete] = useState('');
+
+	const handleAddEdge = () => {
+		if (edge[0] === '' || edge[1] === '') {
+			alert('Set two vertexes');
+		} else if (edge[0] === edge[1]) {
+			alert('Edge cannot be between 1 vertex!');
+		} else {
+			let isEdgeRepeat = false;
+			edgesList.forEach(currEdge => {
+				if (currEdge.includes(edge[0]) && currEdge.includes(edge[1])) {
+					isEdgeRepeat = true;
+				}
+			});
+			if (isEdgeRepeat) {
+				alert('This edge already exists!');
+			} else {
+				setEdgesList(prev => [...prev, edge]);
+				setEdge(['', '']);
+			}
+		}
+	}
+
+	const handleDeleteEdge = () => {
+		const edgeNumber = Number(edgeToDelete);
+		if (edgeToDelete !== '' && Number.isInteger(edgeNumber) && edgeNumber >= 0) {
+			setEdgesList((prev) => prev.filter((_, index) => index !== edgeNumber));
+			setEdgeToDelete('');
+		} else {
+			alert('Write № of edge you want to delete!');
+		}
+	}
+
 	return (
 			<div className='graphCreation'>
 				<div className="buttonsContainer">
@@ -25,26 +57,7 @@ const GraphCreation = ({edgesList, setEdgesList, isRunning}) => {
 						/>
 						<button
 								disabled={isRunning}
-								onClick={() => {
-									if (edge[0] === '' || edge[1] === '') {
-										alert('Set two vertexes')
-									} else if (edge[0] === edge[1]) {
-										alert('Edge can not be between 1 vertex!')
-									} else {
-										let isEdgeRepeat = false;
-										edgesList.forEach(currEdge => {
-											if (currEdge.includes(edge[0]) && currEdge.includes(edge[1])) {
-												isEdgeRepeat = true;
-											}
-										});
-										if (isEdgeRepeat) {
-											alert('These edge already exist!')
-										} else {
-											setEdgesList(prev => [...prev, edge]);
-											setEdge(['', '']);
-										}
-									}
-								}}
+								onClick={handleAddEdge}
 						>Add edge
 						</button>
 					</div>
@@ -53,21 +66,13 @@ const GraphCreation = ({edgesList, setEdgesList, isRunning}) => {
 								min='0'
 								type="number"
 								value={edgeToDelete}
-								onChange={(e) => setEdgeToDelete(e.target.value.replace(' ', ''))}
+								onChange={(e) => {
+										setEdgeToDelete(e.target.value.replace(' ', ''))}
+								}
 						/>
 						<button
 								disabled={isRunning}
-								onClick={() => {
-									const edgeNumber = Number(edgeToDelete)
-									if (edgeToDelete !== '' && Number.isInteger(edgeNumber) && edgeNumber >= 0) {
-										setEdgesList((prev) =>
-												prev.filter((_, index) => index !== edgeNumber)
-										);
-										setEdgeToDelete('');
-									} else {
-										alert('Write № of edge you want to delete!')
-									}
-								}}
+								onClick={handleDeleteEdge}
 						>Delete edge by №
 						</button>
 					</div>
