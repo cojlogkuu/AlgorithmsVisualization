@@ -1,4 +1,3 @@
-import './App.css'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import HomePage from "./components/pages/homePage/HomePage.jsx";
 import GraphPage from "./components/pages/graphPage/GraphPage.jsx";

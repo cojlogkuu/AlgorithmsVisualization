@@ -1,0 +1,24 @@
+.edgeList {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0 20px 0;
+
+	table {
+		border-collapse: collapse;
+		width: 50%;
+		text-align: center;
+		font-family: Arial, sans-serif;
+
+		th {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px;
+			border: 1px solid #c3c1c1;
+		}
+
+		td {
+			border: 1px solid #c3c1c1;
+			padding: 8px;
+		}
+	}
+}

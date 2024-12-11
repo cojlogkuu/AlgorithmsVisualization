@@ -1,0 +1,55 @@
+.graphCreation {
+	.buttonsContainer {
+		margin: 0 auto;
+		max-width: 600px;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+
+		button {
+			padding: 5px 8px;
+			background-color: #4CAF50;
+			color: #fff;
+			font-size: 1.25rem;
+			border-radius: 15px;
+
+			&:hover {
+				opacity: 0.6;
+			}
+
+			&:disabled {
+				opacity: 0.6;
+			}
+		}
+	}
+
+	input {
+		display: block;
+		padding: 5px;
+		border: 2px solid #1b591d;
+		background-color: #abe3ab;
+		color: #818181;
+		font-weight: bold;
+		border-radius: 4px;
+		width: 35px;
+		height: 35px;
+		text-align: center;
+		font-size: 1.2rem;
+	}
+
+	.addEdge {
+		display: flex;
+		gap: 20px;
+	}
+
+	.deleteEdge {
+		display: flex;
+		gap: 20px;
+
+		input {
+			font-size: 1.2rem;
+			padding: 3px;
+			width: 40px;
+		}
+	}
+}
