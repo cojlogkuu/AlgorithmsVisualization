@@ -2,7 +2,8 @@ import {setCurrentVertex} from "./avlTreeSlice.js";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const searchingVertexAnimation = (value, wasFound = () => {}) => async (dispatch, getState) => {
+export const searchingVertexAnimation = (value, wasFoundCallBack = () => {
+}) => async (dispatch, getState) => {
 	const recursiveSearching = async (vertex) => {
 		if (!vertex) return;
 
@@ -35,6 +36,6 @@ export const searchingVertexAnimation = (value, wasFound = () => {}) => async (d
 
 	const {avlTree} = getState().avlTree;
 	const isFound = await recursiveSearching(avlTree);
-	wasFound(isFound);
+	wasFoundCallBack(isFound);
 	dispatch(setCurrentVertex(null));
-};
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import "./listOfEdges.css";
 
-const EdgeList = ({ edges }) => {
+const EdgeList = ({edges}) => {
 	return (
 			<div className="edgeList">
 				<table>
@@ -17,7 +17,7 @@ const EdgeList = ({ edges }) => {
 					</thead>
 					<tbody>
 					{edges.map((edge, index) => (
-							<tr key={index}>
+							<tr key={`${edge[0]}${edge[1]}`}>
 								<td>{index}</td>
 								<td>{edge[0]}</td>
 								<td>{edge[1]}</td>

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {
 	insertVertex,
 	insertVertexWithoutRotating,
@@ -71,7 +71,7 @@ const avlTreeSlice = createSlice({
 						[notBalancedVertex.value]: {
 							y: 100,
 							x: 20 * 2 ** (heightOfVertex - 2),
-					},
+						},
 						[notBalancedVertex.left.value]: {
 							y: -100,
 							x: 20 * 2 ** (heightOfVertex - 2),

@@ -34,6 +34,47 @@ const DataStructurePage = () => {
 
 	const heightBetweenVortexes = 100;
 
+	const handleAddVertex = () => {
+		setVertexToAdd('');
+		dispatch(searchingVertexAnimation(Number(vertexToAdd), async (wasFound) => {
+			if (wasFound) {
+				alert('This vertex already exists');
+			} else {
+				dispatch(setIsRunning(true));
+				dispatch(addVertex(Number(vertexToAdd)));
+				await delay(100);
+				dispatch(setVertexesToRotate(Number(vertexToAdd)));
+				await delay(1500);
+				dispatch(resetVertexesToRotate());
+				dispatch(setIsRunning(false));
+				dispatch(resetNotBalancedTree());
+			}
+		}));
+	}
+
+	const handleDeleteVertex = () => {
+		setVertexToDelete('');
+		dispatch(searchingVertexAnimation(Number(vertexToDelete), async (wasFound) => {
+			if (!wasFound) {
+				alert('This vertex dont exist')
+			} else {
+				dispatch(setIsRunning(true));
+				dispatch(deleteVertexAction(Number(vertexToDelete)));
+				await delay(1000);
+				dispatch(setVertexesToRotate());
+				await delay(1500);
+				dispatch(resetVertexesToRotate());
+				dispatch(setIsRunning(false));
+				dispatch(resetNotBalancedTree());
+			}
+		}))
+	}
+
+	const handleFindVertex = () => {
+		setVertexToFind('');
+		dispatch(searchingVertexAnimation(Number(vertexToFind)));
+	}
+
 	return (
 			<main className='dataStructurePage'>
 				<div className="container">
@@ -43,28 +84,10 @@ const DataStructurePage = () => {
 								min="-999"
 								max="9999"
 								value={vertexToAdd}
-								onChange={(e) => {
-									setVertexToAdd(e.target.value)
-								}}
+								onChange={(e) => setVertexToAdd(e.target.value)}
 						/>
 						<button
-								onClick={() => {
-									setVertexToAdd('');
-									dispatch(searchingVertexAnimation(Number(vertexToAdd), async (wasFound) => {
-										if (wasFound) {
-											alert('This vertex already exist')
-										} else {
-											dispatch(setIsRunning(true));
-											dispatch(addVertex(Number(vertexToAdd)));
-											await delay(100);
-											dispatch(setVertexesToRotate(Number(vertexToAdd)));
-											await delay(1500);
-											dispatch(resetVertexesToRotate());
-											dispatch(setIsRunning(false));
-											dispatch(resetNotBalancedTree());
-										}
-									}))
-								}}
+								onClick={handleAddVertex}
 						>Add vertex
 						</button>
 						<input
@@ -72,29 +95,10 @@ const DataStructurePage = () => {
 								min="-999"
 								max="9999"
 								value={vertexToDelete}
-								onChange={(e) => {
-									setVertexToDelete(e.target.value);
-								}}
+								onChange={(e) => setVertexToDelete(e.target.value)}
 						/>
 						<button
-								onClick={() => {
-									setVertexToDelete('');
-									dispatch(searchingVertexAnimation(Number(vertexToDelete), async (wasFound) => {
-										if (!wasFound) {
-											alert('This vertex dont exist')
-										} else {
-											dispatch(setIsRunning(true));
-											dispatch(deleteVertexAction(Number(vertexToDelete)));
-											await delay(1000);
-											dispatch(setVertexesToRotate());
-											await delay(1500);
-											dispatch(resetVertexesToRotate());
-											dispatch(setIsRunning(false));
-											dispatch(resetNotBalancedTree());
-										}
-									}))
-
-								}}
+								onClick={handleDeleteVertex}
 						>Delete vertex
 						</button>
 						<input
@@ -102,15 +106,10 @@ const DataStructurePage = () => {
 								min="-999"
 								max="9999"
 								value={vertexToFind}
-								onChange={(e) => {
-									setVertexToFind(e.target.value)
-								}}
+								onChange={(e) => setVertexToFind(e.target.value)}
 						/>
 						<button
-								onClick={() => {
-									setVertexToFind('');
-									dispatch(searchingVertexAnimation(Number(vertexToFind)));
-								}}
+								onClick={handleFindVertex}
 						>Find vertex
 						</button>
 						<Link to='/'>Go back</Link>

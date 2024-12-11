@@ -7,8 +7,8 @@ const Vertex = ({isCurrent, value, x, y, height}) => {
 
 	return (
 			<g
-				transform={`translate(${vertexesToRotate[value]?.x || 0},${vertexesToRotate[value]?.y || 0})`}
-				style={isRunning ? {transition: 'all 1s ease'}: {transition: 'none'}}
+					transform={`translate(${vertexesToRotate[value]?.x || 0},${vertexesToRotate[value]?.y || 0})`}
+					style={isRunning ? {transition: 'all 1s ease'} : {transition: 'none'}}
 			>
 				<circle cx={x} cy={y} r={20} fill={isCurrent ? 'green' : 'black'} stroke="black"/>
 				<text x={x} y={y} fill="white" textAnchor="middle" alignmentBaseline="middle" fontSize="14">

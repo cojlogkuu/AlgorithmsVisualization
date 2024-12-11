@@ -5,18 +5,18 @@ import {useSelector} from "react-redux";
 
 
 const RecursiveTreeRender = ({vertex, x, y, widthBetweenVortexes, heightBetweenVortexes, currentVertex}) => {
-	if (Object.keys(vertex).length === 0 ) return;
+	if (Object.keys(vertex).length === 0) return;
 
 	const {isRunning} = useSelector((state) => state.avlTree);
 
 	return (
 			<g id={vertex.value}>
 				<Vertex
-					x={x}
-					y={y}
-					isCurrent={vertex.value === currentVertex}
-					value={vertex.value}
-					height={vertex.height}
+						x={x}
+						y={y}
+						isCurrent={vertex.value === currentVertex}
+						value={vertex.value}
+						height={vertex.height}
 				/>
 				{vertex.left && (
 						<>
@@ -29,12 +29,12 @@ const RecursiveTreeRender = ({vertex, x, y, widthBetweenVortexes, heightBetweenV
 									/>
 							)}
 							<RecursiveTreeRender
-								vertex={vertex.left}
-								x={x - widthBetweenVortexes / 2}
-								y={y + heightBetweenVortexes}
-								widthBetweenVortexes={widthBetweenVortexes / 2}
-								heightBetweenVortexes={heightBetweenVortexes}
-								currentVertex={currentVertex}
+									vertex={vertex.left}
+									x={x - widthBetweenVortexes / 2}
+									y={y + heightBetweenVortexes}
+									widthBetweenVortexes={widthBetweenVortexes / 2}
+									heightBetweenVortexes={heightBetweenVortexes}
+									currentVertex={currentVertex}
 							/>
 						</>
 				)}
@@ -49,12 +49,12 @@ const RecursiveTreeRender = ({vertex, x, y, widthBetweenVortexes, heightBetweenV
 									/>
 							)}
 							<RecursiveTreeRender
-								vertex={vertex.right}
-								x={x + widthBetweenVortexes / 2}
-								y={y + heightBetweenVortexes}
-								widthBetweenVortexes={widthBetweenVortexes / 2}
-								heightBetweenVortexes={heightBetweenVortexes}
-								currentVertex={currentVertex}
+									vertex={vertex.right}
+									x={x + widthBetweenVortexes / 2}
+									y={y + heightBetweenVortexes}
+									widthBetweenVortexes={widthBetweenVortexes / 2}
+									heightBetweenVortexes={heightBetweenVortexes}
+									currentVertex={currentVertex}
 							/>
 						</>
 				)}

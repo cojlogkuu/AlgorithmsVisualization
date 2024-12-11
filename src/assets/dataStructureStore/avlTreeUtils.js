@@ -41,9 +41,9 @@ function rotateRight(vertex) {
 
 function findMinValue(vertex) {
 	if (vertex.left === null) {
-		return vertex.value;
+		return vertex.value
 	} else {
-		return findMinValue(vertex.left);
+		return findMinValue(vertex.left)
 	}
 }
 
@@ -100,7 +100,6 @@ export function insertVertexWithoutRotating(vertex, newValue) {
 
 	vertex.height = 1 + Math.max(getHeight(vertex.left), getHeight(vertex.right));
 
-
 	return vertex;
 }
 
@@ -131,7 +130,6 @@ export function deleteVertex(vertex, deleteValue) {
 	vertex.height = 1 + Math.max(getHeight(vertex.left), getHeight(vertex.right));
 
 	const balance = getBalanceFactor(vertex);
-
 
 	if (balance > 1 && getBalanceFactor(vertex.left) >= 0) {
 		return rotateLeft(vertex);
